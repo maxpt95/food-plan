@@ -9,7 +9,8 @@ class Pantry:
         raise NotImplementedError
 
     def get_food(self, food: Food) -> Food | None:
-        return self.pantry.get(food.name)
+        nutrition = self.pantry.get(food.name)
+        return Food(name=food.name, **nutrition) if nutrition is not None else None
 
     def list_foods(pantry):
         raise NotImplementedError
