@@ -6,10 +6,11 @@ Most I/O operations should be concentrated here.
 
 import json
 import time
+from dataclasses import asdict
 
 import config
 import plan
-from food import Food, NutritionalInfo
+from food import Food, NutritionalInfo, ServingSize
 from pantry import Pantry
 
 
@@ -24,7 +25,7 @@ def add_food(pantry: Pantry):
         with the food inventory.
     """
     try:
-        food = Food(input("Enter food name: "))
+        food = Food(input("Enter food name: ").lower())
     except ValueError as e:
         print(f"There was a problem adding your food: {e}")
         return
@@ -39,12 +40,17 @@ def add_food(pantry: Pantry):
             return
 
     print("Insert food nutritional information.")
+    serving_amount = input("Serving size amount: ")
+    serving_unit = input("Serving size unit: ")
     fats = input("Fats (g): ")
     carbs = input("Carbs (g): ")
     proteins = input("Protein (g): ")
 
-    food.nutrition = NutritionalInfo(fats, carbs, proteins)
+    serving = ServingSize(serving_amount, serving_unit)
+    food.nutrition = NutritionalInfo(serving, fats, carbs, proteins)
+
     pantry.add_food(food)
+    print(f"\nAdded to pantry: {food}")
 
 
 def list_foods(pantry: Pantry) -> None:
@@ -88,9 +94,12 @@ def main():
     print("Welcome to Food Plan!")
     print("Loading pantry...")
 
+    if not config.PANTRY_PATH.exists():
+        config.PANTRY_PATH.write_text("{}", encoding="utf-8")
+
     pantry = Pantry(json.load(config.PANTRY_PATH.open()))
     while True:
-        time.sleep(0.5)
+        time.sleep(1)
         menu()
         try:
             request = int(input("\nChoose an option number: "))
@@ -105,7 +114,7 @@ def main():
         # chose to exit.
         if request == config.MENU_OPTIONS_NUMBER:
             with open(config.PANTRY_PATH, "w") as f:
-                json.dump(pantry.foods, f)
+                json.dump(asdict(pantry), f)
 
             return
 
