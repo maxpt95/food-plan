@@ -8,7 +8,7 @@ import time
 
 import pantry
 import plan
-from food import Food
+from food import Food, NutritionalInfo
 
 
 def add_food():
@@ -25,7 +25,7 @@ def add_food():
 
     if pantry.get_food(food) is not None:
         print(f"{food.name} already in Pantry.\n")
-        print(food.nutritional_information)
+        print(food.nutrition)
         print("\nWould you like to modify it?")
 
         to_modify = input("Yes/No: ").lower()
@@ -33,10 +33,11 @@ def add_food():
             return
 
     print("Insert food nutritional information.")
-    food.fats = input("Fats (g): ")
-    food.carbs = input("Carbs (g): ")
-    food.protein = input("Protein (g): ")
+    fats = input("Fats (g): ")
+    carbs = input("Carbs (g): ")
+    proteins = input("Protein (g): ")
 
+    food.nutrition = NutritionalInfo(fats, carbs, proteins)
     pantry.add_food(food)
 
 
