@@ -99,6 +99,9 @@ def main():
 
         # chose to exit.
         if request == config.MENU_OPTIONS_NUMBER:
+            with open(config.PANTRY_PATH, "w") as f:
+                json.dump(pantry.foods, f)
+
             return
 
         route_request(request, pantry)
