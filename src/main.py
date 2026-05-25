@@ -47,8 +47,13 @@ def add_food(pantry: Pantry):
     pantry.add_food(food)
 
 
-def list_foods(pantry: Pantry):
-    raise NotImplementedError
+def list_foods(pantry: Pantry) -> None:
+    if not pantry.foods:
+        print("\nYour pantry is empty. Try adding some foods!")
+        return
+
+    print("\nThis is your pantry:\n")
+    print(pantry)
 
 
 def remove_food(pantry: Pantry):

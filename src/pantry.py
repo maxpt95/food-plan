@@ -16,5 +16,7 @@ class Pantry:
         nutrition = self.foods.get(food.name)
         return Food(food.name, nutrition) if nutrition is not None else None
 
-    def list_foods(self):
-        raise NotImplementedError
+    def __str__(self):
+        return "\n".join(
+            f"{food_name}:\n{nutrition}" for food_name, nutrition in self.foods.items()
+        )
