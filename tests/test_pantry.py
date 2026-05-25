@@ -1,6 +1,6 @@
 import pytest
 
-from food import Food, NutritionalInfo
+from food import Food, NutritionalInfo, ServingSize
 from pantry import Pantry
 
 TORTILLA_NUTRITION = {
@@ -30,3 +30,12 @@ def tortilla() -> Food:
 def test_get_food(pantry: Pantry, tortilla: Food):
     food = pantry.get_food(tortilla)
     assert food.name == food.name
+
+
+def test_add_food(pantry: Pantry):
+    serving = ServingSize(50, "grams")
+    nutrition = NutritionalInfo(serving, fats=5, carbs=0, proteins=6)
+    food = Food("eggs", nutrition)
+
+    pantry.add_food(food)
+    assert pantry.get_food(food).name == "eggs"
