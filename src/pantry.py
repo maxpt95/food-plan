@@ -9,7 +9,7 @@ FoodName = str
 class Pantry:
     foods: dict[FoodName, NutritionalInfo]
 
-    def add_food(self, food: Food):
+    def add_food(self, food: Food) -> None:
         self.foods[food.name] = food.nutrition
 
     def get_food(self, food: Food) -> Food | None:
