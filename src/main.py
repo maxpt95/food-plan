@@ -53,7 +53,7 @@ def route_request(request: int) -> None:
 
 
 def menu() -> None:
-    print("Food Plan")
+    print("\nFood Plan")
     print("----------------")
     print("1. Add new food.")
     print("2. Show food list.")
@@ -65,12 +65,16 @@ def main():
     print("Welcome to Food Plan!")
 
     while True:
+        time.sleep(0.5)
         menu()
-        request = int(input("\nChoose an option number: "))
+        try:
+            request = int(input("\nChoose an option number: "))
+        except ValueError:
+            print("\nPlease choose one of the listed option numbers.")
+            continue
 
         if request not in range(1, 5):
-            print(f"\n{request} isn't a valid option. \n")
-            time.sleep(1)
+            print(f"\n{request} isn't listed.")
             continue
 
         # chose to exit.
