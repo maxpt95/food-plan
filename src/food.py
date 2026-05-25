@@ -6,6 +6,9 @@ class ServingSize:
     amount: float
     unit: str
 
+    def __str__(self):
+        return f"Serving Size: {self.amount}{self.unit}"
+
 
 @dataclass
 class NutritionalInfo:
@@ -16,6 +19,10 @@ class NutritionalInfo:
 
     def __str__(self):
         return f"""
+Nutrtional Info
+------------------
+{self.serving_size}
+-------------------
 Fats: {self.fats}g
 Carbohidrates: {self.carbs}g
 Proteins: {self.proteins}g
@@ -30,3 +37,6 @@ class Food:
     def __post_init__(self):
         if self.name == "":
             raise ValueError("Food name can't be empty.")
+
+    def __str__(self):
+        return f"{self.name}: \n {self.nutrition}"
