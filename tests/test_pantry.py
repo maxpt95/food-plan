@@ -18,13 +18,13 @@ PANTRY_DICT = {
 
 @pytest.fixture
 def tortilla() -> Food:
-    nutrition = NutritionalInfo(**TORTILLA_NUTRITION)
+    nutrition = NutritionalInfo.from_dict(TORTILLA_NUTRITION)
     return Food(name="tortilla", nutrition=nutrition)
 
 
 @pytest.fixture
-def pantry(tortilla: Food) -> Pantry:
-    return Pantry(foods={tortilla.name: tortilla.nutrition})
+def pantry() -> Pantry:
+    return Pantry.from_dict(PANTRY_DICT)
 
 
 def test_from_dict(pantry: Pantry):
@@ -32,17 +32,16 @@ def test_from_dict(pantry: Pantry):
 
 
 def test_get_food(pantry: Pantry, tortilla: Food):
-    food = pantry.get_food(tortilla)
-    assert food.name == food.name
+    assert pantry.get_food(tortilla.name) == tortilla
 
 
 def test_add_food(pantry: Pantry):
     serving = ServingSize(50, "grams")
     nutrition = NutritionalInfo(serving, fats=5, carbs=0, proteins=6)
-    food = Food("eggs", nutrition)
+    eggs = Food("eggs", nutrition)
 
-    pantry.add_food(food)
-    assert pantry.get_food(food).name == "eggs"
+    pantry.add_food(eggs)
+    assert pantry.get_food(eggs.name) == eggs
 
 
 def test_pop_food(pantry: Pantry, tortilla: Food):

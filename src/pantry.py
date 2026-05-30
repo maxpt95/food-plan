@@ -15,7 +15,7 @@ class Pantry:
         """Instantiates Pantry from a json dict"""
         return cls(
             foods={
-                food_name: NutritionalInfo(**nutrition)
+                food_name: NutritionalInfo.from_dict(nutrition)
                 for food_name, nutrition in pantry_dict["foods"].items()
             }
         )
@@ -23,9 +23,9 @@ class Pantry:
     def add_food(self, food: Food) -> None:
         self.foods[food.name] = food.nutrition
 
-    def get_food(self, food: Food) -> Food | None:
-        nutrition = self.foods.get(food.name)
-        return Food(food.name, nutrition) if nutrition is not None else None
+    def get_food(self, food_name: str) -> Food | None:
+        nutrition = self.foods.get(food_name.lower())
+        return Food(food_name, nutrition) if nutrition is not None else None
 
     def pop_food(self, food_name: str) -> Food | None:
         """Remove food from pantry

@@ -4,40 +4,16 @@ Where the user interface lives.
 Most I/O operations should be concentrated here.
 """
 
+from constants import SEPARATOR, MENU_OPTIONS_NUMBER
 import json
 import time
 from dataclasses import asdict
-
 import config
 from food import Food, NutritionalInfo, ServingSize
 from pantry import Pantry
 
 
-def add_food(pantry: Pantry):
-    """Add food user interface.
-
-    Adds a new food to pantry or overwrites
-    an existing one.
-
-    Args:
-        pantry: the pantry instance to interact
-        with the food inventory.
-    """
-    try:
-        food = Food(input("Enter food name: ").lower())
-    except ValueError as e:
-        print(f"There was a problem adding your food: {e}")
-        return
-
-    if pantry.get_food(food) is not None:
-        print(f"{food.name} already in Pantry.\n")
-        print(food.nutrition)
-        print("\nWould you like to modify it?")
-
-        to_modify = input("Yes/No: ").lower()
-        if to_modify == "no":
-            return
-
+def ask_nutritional_info() -> NutritionalInfo:
     print("Insert food nutritional information.")
     serving_amount = int(input("Serving size amount: "))
     serving_unit = input("Serving size unit: ")
@@ -46,10 +22,84 @@ def add_food(pantry: Pantry):
     proteins = float(input("Protein (g): "))
 
     serving = ServingSize(serving_amount, serving_unit)
-    food.nutrition = NutritionalInfo(serving, fats, carbs, proteins)
+    return NutritionalInfo(serving, fats, carbs, proteins)
 
+
+def ask_food_name() -> str:
+    food_name = input("Enter food name: ").lower().strip()
+    if not food_name:
+        print("\nFood name is empty")
+
+    return food_name
+
+
+def add_food(pantry: Pantry, food_name: str):
+    """Add food user interface.
+
+    Adds a new food to pantry.
+
+    Args:
+        pantry: the pantry instance to interact
+        with the food inventory.
+    """
+
+    if (found_food := pantry.get_food(food_name)) is not None:
+        print(f"{found_food.name} already in Pantry.\n")
+        print(found_food.nutrition)
+        print("\nWould you like to modify it?")
+
+        if input("Yes/No: ").lower() == "no":
+            return
+
+    nutrition = ask_nutritional_info()
+    food = Food(food_name, nutrition)
     pantry.add_food(food)
     print(f"\nAdded to pantry:\n{food}")
+
+
+def modify_food(pantry: Pantry, food: Food) -> None:
+    food_name = food.name
+    while True:
+        print(f"\nModifying {food.name.title()}.")
+        print(SEPARATOR)
+        print("1. Name")
+        print("2. Serving Size")
+        print("3. Protein")
+        print("4. Fats")
+        print("5. Carbs")
+        print("6. All nutritional info")
+        print("7. EXIT")
+
+        choice = int(input("\n Choose: "))
+
+        match choice:
+            case 1:
+                new_name = ask_food_name()
+                if not new_name:
+                    continue
+                food.name = new_name
+            case 2:
+                serving_size = food.nutrition.serving_size
+                print(f"\n{food.name} {serving_size}")
+                serving_size.amount = float(input("Enter new serving size amount: "))
+                serving_size.unit = input("Enter new serving size unit: ")
+            case 3:
+                print(f"\n{food.name} current proteins(g): {food.nutrition.proteins}")
+                food.nutrition.proteins = float(input("Enter new protein(g) amount: "))
+            case 4:
+                print(f"\n{food.name} current carbs(g): {food.nutrition.fats}")
+                food.nutrition.fats = float(input("Enter new fats(g) amount: "))
+            case 5:
+                print(f"\n{food.name} current carbs(g): {food.nutrition.carbs}")
+                food.nutrition.carbs = float(input("Enter new carbs(g) amount: "))
+            case 6:
+                food.nutrition = ask_nutritional_info()
+            case 7:
+                pantry.pop_food(food_name)
+                pantry.add_food(food)
+                return
+            case _:
+                print(f"Invalid option: {choice}")
 
 
 def list_foods(pantry: Pantry) -> None:
@@ -76,18 +126,24 @@ def route_request(request: int, pantry: Pantry) -> None:
         case 1:
             list_foods(pantry)
         case 2:
-            add_food(pantry)
+            food_name = ask_food_name()
+            food = pantry.get_food(food_name)
+            if not food:
+                add_food(pantry, food_name)
+                return
+            modify_food(pantry, food)
         case 3:
             remove_food(pantry)
         case 4:
-            plan.generate_random_plate()
+            # generate_random_plate()
+            pass
         case _:
             raise ValueError(f"invalid request: {request}")
 
 
 def menu() -> None:
     print("\nFood Plan")
-    print("----------------")
+    print(SEPARATOR)
     print("1. Show food list.")
     print("2. Add or modify food.")
     print("3. Remove food.")
@@ -112,12 +168,13 @@ def main():
             print("\nPlease choose one of the listed option numbers.")
             continue
 
-        if request not in range(1, config.MENU_OPTIONS_NUMBER + 1):
+        # TODO: let this be handle by route request
+        if request not in range(1, MENU_OPTIONS_NUMBER + 1):
             print(f"\n{request} isn't listed.")
             continue
 
         # chose to exit.
-        if request == config.MENU_OPTIONS_NUMBER:
+        if request == MENU_OPTIONS_NUMBER:
             with open(config.PANTRY_PATH, "w") as f:
                 json.dump(asdict(pantry), f)
 
