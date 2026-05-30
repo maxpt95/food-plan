@@ -39,11 +39,11 @@ def add_food(pantry: Pantry):
             return
 
     print("Insert food nutritional information.")
-    serving_amount = input("Serving size amount: ")
+    serving_amount = int(input("Serving size amount: "))
     serving_unit = input("Serving size unit: ")
-    fats = input("Fats (g): ")
-    carbs = input("Carbs (g): ")
-    proteins = input("Protein (g): ")
+    fats = float(input("Fats (g): "))
+    carbs = float(input("Carbs (g): "))
+    proteins = float(input("Protein (g): "))
 
     serving = ServingSize(serving_amount, serving_unit)
     food.nutrition = NutritionalInfo(serving, fats, carbs, proteins)
