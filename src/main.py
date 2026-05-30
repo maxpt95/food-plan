@@ -102,7 +102,7 @@ def main():
     if not config.PANTRY_PATH.exists():
         config.PANTRY_PATH.write_text("{}", encoding="utf-8")
 
-    pantry = Pantry.from_json(json.load(config.PANTRY_PATH.open()))
+    pantry = Pantry.from_dict(json.load(config.PANTRY_PATH.open()))
     while True:
         time.sleep(1)
         menu()

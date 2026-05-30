@@ -11,12 +11,12 @@ class Pantry:
     foods: dict[FoodName, NutritionalInfo]
 
     @classmethod
-    def from_json(cls, foods_json: dict) -> Pantry:
+    def from_dict(cls, pantry_dict: dict) -> Pantry:
         """Instantiates Pantry from a json dict"""
         return cls(
             foods={
                 food_name: NutritionalInfo(**nutrition)
-                for food_name, nutrition in foods_json["foods"].items()
+                for food_name, nutrition in pantry_dict["foods"].items()
             }
         )
 

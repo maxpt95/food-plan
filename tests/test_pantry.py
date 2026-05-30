@@ -10,8 +10,8 @@ TORTILLA_NUTRITION = {
     "proteins": 6,
 }
 PANTRY_DICT = {
-    "tortilla": {
-        "nutrition": TORTILLA_NUTRITION,
+    "foods": {
+        "tortilla": TORTILLA_NUTRITION,
     }
 }
 
@@ -25,6 +25,10 @@ def tortilla() -> Food:
 @pytest.fixture
 def pantry(tortilla: Food) -> Pantry:
     return Pantry(foods={tortilla.name: tortilla.nutrition})
+
+
+def test_from_dict(pantry: Pantry):
+    assert pantry == Pantry.from_dict(PANTRY_DICT)
 
 
 def test_get_food(pantry: Pantry, tortilla: Food):
