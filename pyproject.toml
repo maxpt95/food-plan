@@ -13,4 +13,9 @@ testpaths = ["tests", "src"]
 addopts = ["--import-mode=importlib"]
 
 [dependency-groups]
-dev = ["pre-commit>=4.6.0", "pytest>=9.0.3", "ruff>=0.15.15"]
+dev = [
+    "pre-commit>=4.6.0",
+    "pytest>=9.0.3",
+    "ruff>=0.15.15",
+    "typo>=0.1.7",
+]

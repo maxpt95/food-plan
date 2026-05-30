@@ -48,6 +48,7 @@ dev = [
     { name = "pre-commit" },
     { name = "pytest" },
     { name = "ruff" },
+    { name = "typo" },
 ]
 
 [package.metadata]
@@ -57,6 +58,7 @@ dev = [
     { name = "pre-commit", specifier = ">=4.6.0" },
     { name = "pytest", specifier = ">=9.0.3" },
     { name = "ruff", specifier = ">=0.15.15" },
+    { name = "typo", specifier = ">=0.1.7" },
 ]
 
 [[package]]
@@ -227,6 +229,12 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/02/a8/1269eddd6945a06c23f055ef7848886e37cf9d6a8bebb386a3115f01470c/ruff-0.15.15-py3-none-win_amd64.whl", hash = "sha256:8df0323902e15e24bc4bf246da830573d3cf3352bd0b9a164eab335d111ff4a4", size = 11868463, upload-time = "2026-05-28T14:16:11.333Z" },
     { url = "https://files.pythonhosted.org/packages/4e/b2/920464c907b191e37469d477a1aa8bc048b8f36c4c1610dfa4ab87b39e18/ruff-0.15.15-py3-none-win_arm64.whl", hash = "sha256:3c8ceca6792f38196b8f589bc92eccd03eef286602da92e5dc05cc42ef6441b7", size = 11138498, upload-time = "2026-05-28T14:16:38.425Z" },
 ]
+
+[[package]]
+name = "typo"
+version = "0.1.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/3d/72/26a99adf855f65d4f25b110e033a5e25dcb98842e383c7b7b7020df1dd13/typo-0.1.7.tar.gz", hash = "sha256:36cd716d3a75a58b16e587ffb1135c1790d152db15f7247be23a29358fb62a02", size = 7328, upload-time = "2023-12-12T06:28:55.284Z" }
 
 [[package]]
 name = "virtualenv"
