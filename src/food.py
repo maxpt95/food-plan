@@ -23,7 +23,7 @@ class NutritionalInfo:
 {self.serving_size}
 ------------------
 Fats: {self.fats}g
-Carbohidrates: {self.carbs}g
+Carbohydrates: {self.carbs}g
 Proteins: {self.proteins}g
 """
 
