@@ -18,5 +18,6 @@ class Pantry:
 
     def __str__(self):
         return "\n".join(
-            f"{food_name}:\n{nutrition}" for food_name, nutrition in self.foods.items()
+            f"{food_name}\np: {nutrition.proteins}|f: {nutrition.fats}|c: {nutrition.carbs}"
+            for food_name, nutrition in self.foods.items()
         )

@@ -18,11 +18,10 @@ class NutritionalInfo:
     proteins: float
 
     def __str__(self):
-        return f"""
-Nutrtional Info
+        return f"""Nutritional Info
 ------------------
 {self.serving_size}
--------------------
+------------------
 Fats: {self.fats}g
 Carbohidrates: {self.carbs}g
 Proteins: {self.proteins}g
@@ -39,4 +38,4 @@ class Food:
             raise ValueError("Food name can't be empty.")
 
     def __str__(self):
-        return f"{self.name}: \n {self.nutrition}"
+        return f"{self.name.capitalize()}\n------------------\n{self.nutrition}"

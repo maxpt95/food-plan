@@ -49,7 +49,7 @@ def add_food(pantry: Pantry):
     food.nutrition = NutritionalInfo(serving, fats, carbs, proteins)
 
     pantry.add_food(food)
-    print(f"\nAdded to pantry: {food}")
+    print(f"\nAdded to pantry:\n{food}")
 
 
 def list_foods(pantry: Pantry) -> None:
