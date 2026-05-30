@@ -9,7 +9,6 @@ import time
 from dataclasses import asdict
 
 import config
-import plan
 from food import Food, NutritionalInfo, ServingSize
 from pantry import Pantry
 
