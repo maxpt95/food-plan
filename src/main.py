@@ -62,7 +62,13 @@ def list_foods(pantry: Pantry) -> None:
 
 
 def remove_food(pantry: Pantry):
-    raise NotImplementedError
+    food_name = input("Enter food name to be removed: ")
+    food = pantry.pop_food(food_name)
+
+    if not food:
+        print(f"{food_name} wasn't found in pantry.")
+
+    print(f"Removed {food.name} from pantry.")
 
 
 def route_request(request: int, pantry: Pantry) -> None:
@@ -96,7 +102,7 @@ def main():
     if not config.PANTRY_PATH.exists():
         config.PANTRY_PATH.write_text("{}", encoding="utf-8")
 
-    pantry = Pantry(json.load(config.PANTRY_PATH.open()))
+    pantry = Pantry.from_json(json.load(config.PANTRY_PATH.open()))
     while True:
         time.sleep(1)
         menu()
