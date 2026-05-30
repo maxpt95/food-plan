@@ -61,14 +61,14 @@ def list_foods(pantry: Pantry) -> None:
     print(pantry)
 
 
-def remove_food(pantry: Pantry):
+def remove_food(pantry: Pantry) -> None:
     food_name = input("Enter food name to be removed: ")
     food = pantry.pop_food(food_name)
 
     if not food:
-        print(f"{food_name} wasn't found in pantry.")
+        print(f"\n{food_name} wasn't found in pantry.")
 
-    print(f"Removed {food.name} from pantry.")
+    print(f"\nRemoved {food_name} from pantry.")
 
 
 def route_request(request: int, pantry: Pantry) -> None:

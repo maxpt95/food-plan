@@ -9,22 +9,22 @@ TORTILLA_NUTRITION = {
     "carbs": 27,
     "proteins": 6,
 }
-
-
-@pytest.fixture
-def pantry() -> Pantry:
-    pantry_dict = {
-        "tortilla": {
-            "nutrition": TORTILLA_NUTRITION,
-        }
+PANTRY_DICT = {
+    "tortilla": {
+        "nutrition": TORTILLA_NUTRITION,
     }
-    return Pantry(pantry_dict)
+}
 
 
 @pytest.fixture
 def tortilla() -> Food:
     nutrition = NutritionalInfo(**TORTILLA_NUTRITION)
     return Food(name="tortilla", nutrition=nutrition)
+
+
+@pytest.fixture
+def pantry(tortilla: Food) -> Pantry:
+    return Pantry(foods={tortilla.name: tortilla.nutrition})
 
 
 def test_get_food(pantry: Pantry, tortilla: Food):
@@ -39,3 +39,7 @@ def test_add_food(pantry: Pantry):
 
     pantry.add_food(food)
     assert pantry.get_food(food).name == "eggs"
+
+
+def test_pop_food(pantry: Pantry, tortilla: Food):
+    assert tortilla == pantry.pop_food(tortilla.name)

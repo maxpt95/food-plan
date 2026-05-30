@@ -34,12 +34,14 @@ class Pantry:
             The food item removed or None if it doesn't exist.
         """
         try:
-            return self.foods.popitem(food_name)
+            nutrition = self.foods.pop(food_name.lower())
         except KeyError:
             return None
 
+        return Food(food_name, nutrition)
+
     def __str__(self):
         return "\n\n".join(
-            f"{food_name}\np: {nutrition.proteins}|f: {nutrition.fats}|c: {nutrition.carbs}"
+            f"{food_name.capitalize()}\np: {nutrition.proteins}|f: {nutrition.fats}|c: {nutrition.carbs}"
             for food_name, nutrition in self.foods.items()
         )
