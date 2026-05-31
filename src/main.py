@@ -168,11 +168,6 @@ def main():
             print("\nPlease choose one of the listed option numbers.")
             continue
 
-        # TODO: let this be handle by route request
-        if request not in range(1, MENU_OPTIONS_NUMBER + 1):
-            print(f"\n{request} isn't listed.")
-            continue
-
         # chose to exit.
         if request == MENU_OPTIONS_NUMBER:
             with open(config.PANTRY_PATH, "w") as f:
@@ -180,7 +175,10 @@ def main():
 
             return
 
-        route_request(request, pantry)
+        try:
+            route_request(request, pantry)
+        except ValueError:
+            print("\nPlease choose one of the listed options")
 
 
 if __name__ == "__main__":
