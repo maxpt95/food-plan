@@ -4,25 +4,30 @@ Where the user interface lives.
 Most I/O operations should be concentrated here.
 """
 
-from constants import SEPARATOR, MENU_OPTIONS_NUMBER
 import json
 import time
 from dataclasses import asdict
+
 import config
+from constants import MENU_OPTIONS_NUMBER, SEPARATOR
 from food import Food, NutritionalInfo, ServingSize
 from pantry import Pantry
 
 
 def ask_nutritional_info() -> NutritionalInfo:
-    print("Insert food nutritional information.")
-    serving_amount = int(input("Serving size amount: "))
-    serving_unit = input("Serving size unit: ")
-    fats = float(input("Fats (g): "))
-    carbs = float(input("Carbs (g): "))
-    proteins = float(input("Protein (g): "))
+    while True:
+        print("\nInsert food nutritional information.")
+        serving_amount = int(input("Serving size amount: "))
+        serving_unit = input("Serving size unit: ")
+        fats = float(input("Fats (g): "))
+        carbs = float(input("Carbs (g): "))
+        proteins = float(input("Protein (g): "))
 
-    serving = ServingSize(serving_amount, serving_unit)
-    return NutritionalInfo(serving, fats, carbs, proteins)
+        try:
+            serving = ServingSize(serving_amount, serving_unit)
+            return NutritionalInfo(serving, fats, carbs, proteins)
+        except ValueError as e:
+            print(f"\n{e}")
 
 
 def ask_food_name() -> str:
@@ -41,16 +46,8 @@ def add_food(pantry: Pantry, food_name: str):
     Args:
         pantry: the pantry instance to interact
         with the food inventory.
+        food_name: name of the food to add to the pantry.
     """
-
-    if (found_food := pantry.get_food(food_name)) is not None:
-        print(f"{found_food.name} already in Pantry.\n")
-        print(found_food.nutrition)
-        print("\nWould you like to modify it?")
-
-        if input("Yes/No: ").lower() == "no":
-            return
-
     nutrition = ask_nutritional_info()
     food = Food(food_name, nutrition)
     pantry.add_food(food)
@@ -81,17 +78,34 @@ def modify_food(pantry: Pantry, food: Food) -> None:
             case 2:
                 serving_size = food.nutrition.serving_size
                 print(f"\n{food.name} {serving_size}")
-                serving_size.amount = float(input("Enter new serving size amount: "))
+                try:
+                    serving_size.amount = float(
+                        input("Enter new serving size amount: ")
+                    )
+                except ValueError as e:
+                    print(f"\n{e}")
+                    continue
                 serving_size.unit = input("Enter new serving size unit: ")
             case 3:
                 print(f"\n{food.name} current proteins(g): {food.nutrition.proteins}")
-                food.nutrition.proteins = float(input("Enter new protein(g) amount: "))
+                try:
+                    food.nutrition.proteins = float(
+                        input("Enter new protein(g) amount: ")
+                    )
+                except ValueError as e:
+                    print(f"\n{e}")
             case 4:
                 print(f"\n{food.name} current carbs(g): {food.nutrition.fats}")
-                food.nutrition.fats = float(input("Enter new fats(g) amount: "))
+                try:
+                    food.nutrition.fats = float(input("Enter new fats(g) amount: "))
+                except ValueError as e:
+                    print(f"\n{e}")
             case 5:
                 print(f"\n{food.name} current carbs(g): {food.nutrition.carbs}")
-                food.nutrition.carbs = float(input("Enter new carbs(g) amount: "))
+                try:
+                    food.nutrition.carbs = float(input("Enter new carbs(g) amount: "))
+                except ValueError as e:
+                    print(f"\n{e}")
             case 6:
                 food.nutrition = ask_nutritional_info()
             case 7:
