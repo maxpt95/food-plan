@@ -77,3 +77,11 @@ class TestNutritionalInfo:
             proteins=tortilla_nutrition_dict["proteins"],
         )
         assert nutrition == NutritionalInfo.from_dict(tortilla_nutrition_dict)
+
+    def test_set_negative_macrox(
+        self, tortilla_nutrition: NutritionalInfo, subtests: pytest.Subtests
+    ):
+        for macro in ["fats", "carbs", "proteins"]:
+            with subtests.test("setting negative a macro", macro=macro):
+                with pytest.RaisesExc(ValueError, match=f"{macro} can't be negative"):
+                    setattr(tortilla_nutrition, macro, -1)

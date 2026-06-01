@@ -13,14 +13,14 @@ class ServingSize:
 
     @property
     def amount(self) -> float:
-        return self.amount
+        return self._amount
 
     @amount.setter
     def amount(self, value: float):
         """Sets only positive amounts."""
-        if self.amount < 0:
+        if value < 0:
             raise ValueError("Amount can't be negative")
-        self.amount = value
+        self._amount = value
 
     def __eq__(self, other: ServingSize) -> bool:
         if not isinstance(other, ServingSize):
@@ -32,7 +32,6 @@ class ServingSize:
         return f"Serving Size: {self.amount}{self.unit}"
 
 
-# TODO: validate setters check positive values
 class NutritionalInfo:
     def __init__(
         self, serving_size: ServingSize, fats: float, carbs: float, proteins: float
@@ -51,6 +50,36 @@ class NutritionalInfo:
         nutritional_info_cp = deepcopy(nutritional_info)
         serving_size = ServingSize(**nutritional_info_cp.pop("serving_size"))
         return cls(serving_size, **nutritional_info_cp)
+
+    @property
+    def fats(self) -> float:
+        return self._fats
+
+    @fats.setter
+    def fats(self, value: float) -> None:
+        if value < 0:
+            raise ValueError("fats can't be negative")
+        self._fats = self.fats
+
+    @property
+    def carbs(self) -> float:
+        return self._carbs
+
+    @carbs.setter
+    def carbs(self, value: float) -> None:
+        if value < 0:
+            raise ValueError("carbs can't be negative")
+        self._carbs = self.carbs
+
+    @property
+    def proteins(self) -> float:
+        return self._proteins
+
+    @proteins.setter
+    def proteins(self, value: float) -> None:
+        if value < 0:
+            raise ValueError("proteins can't be negative")
+        self._proteins = self.proteins
 
     def __eq__(self, other: NutritionalInfo) -> bool:
         if not isinstance(other, NutritionalInfo):
