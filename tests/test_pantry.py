@@ -17,9 +17,8 @@ PANTRY_DICT = {
 
 
 @pytest.fixture
-def tortilla() -> Food:
-    nutrition = NutritionalInfo.from_dict(TORTILLA_NUTRITION)
-    return Food(name="tortilla", nutrition=nutrition)
+def tortilla(tortilla_nutrition: NutritionalInfo) -> Food:
+    return Food(name="tortilla", nutrition=tortilla_nutrition)
 
 
 @pytest.fixture
