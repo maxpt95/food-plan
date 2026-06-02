@@ -9,6 +9,18 @@ def pantry_dict(tortilla_nutrition_dict: dict) -> dict:
     return {
         "foods": {
             "tortilla": tortilla_nutrition_dict,
+            "spaghetti": {
+                "serving_size": {"unit": "g", "amount": 100},
+                "fats": 1.5,
+                "carbs": 75,
+                "proteins": 13,
+            },
+            "rice": {
+                "serving_size": {"unit": "g", "amount": 100},
+                "fats": 0.7,
+                "carbs": 80,
+                "proteins": 7.1,
+            },
         }
     }
 
@@ -19,16 +31,24 @@ def tortilla(tortilla_nutrition: NutritionalInfo) -> Food:
 
 
 @pytest.fixture
-def pantry(tortilla_nutrition: NutritionalInfo) -> Pantry:
-    return Pantry({"tortilla": tortilla_nutrition})
+def pantry(tortilla_nutrition: NutritionalInfo, pantry_dict: dict) -> Pantry:
+    return Pantry.from_dict(pantry_dict)
 
 
-def test_from_dict(pantry: Pantry, pantry_dict: dict):
+def test_from_dict(tortilla_nutrition_dict: dict, tortilla_nutrition):
+    pantry_dict = {"foods": {"tortilla": tortilla_nutrition_dict}}
+    pantry = Pantry({"tortilla": tortilla_nutrition})
     assert pantry == Pantry.from_dict(pantry_dict)
 
 
 def test_get_food(pantry: Pantry, tortilla: Food):
     assert pantry.get_food(tortilla.name) == tortilla
+
+
+def test_get_random_food(pantry: Pantry):
+    """Test the random food exists in Pantry and it is unchanged."""
+    random_food = pantry.get_random_food()
+    assert pantry.get_food(random_food.name) == random_food
 
 
 def test_add_food(pantry: Pantry):

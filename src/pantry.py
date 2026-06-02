@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+import random
 from dataclasses import dataclass
 
 from food import Food, NutritionalInfo
@@ -26,6 +28,14 @@ class Pantry:
     def get_food(self, food_name: str) -> Food | None:
         nutrition = self.foods.get(food_name.lower())
         return Food(food_name, nutrition) if nutrition is not None else None
+
+    def get_random_food(self) -> Food | None:
+        if not self.foods:
+            return None
+
+        random_food = random.choice(tuple(self.foods.items()))
+
+        return Food(name=random_food[0], nutrition=random_food[1])
 
     def pop_food(self, food_name: str) -> Food | None:
         """Remove food from pantry
