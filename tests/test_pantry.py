@@ -3,17 +3,14 @@ import pytest
 from food import Food, NutritionalInfo, ServingSize
 from pantry import Pantry
 
-TORTILLA_NUTRITION = {
-    "serving_size": {"unit": "grams", "amount": 60},
-    "fats": 4,
-    "carbs": 27,
-    "proteins": 6,
-}
-PANTRY_DICT = {
-    "foods": {
-        "tortilla": TORTILLA_NUTRITION,
+
+@pytest.fixture
+def pantry_dict(tortilla_nutrition_dict: dict) -> dict:
+    return {
+        "foods": {
+            "tortilla": tortilla_nutrition_dict,
+        }
     }
-}
 
 
 @pytest.fixture
@@ -22,12 +19,12 @@ def tortilla(tortilla_nutrition: NutritionalInfo) -> Food:
 
 
 @pytest.fixture
-def pantry() -> Pantry:
-    return Pantry.from_dict(PANTRY_DICT)
+def pantry(tortilla_nutrition: NutritionalInfo) -> Pantry:
+    return Pantry({"tortilla": tortilla_nutrition})
 
 
-def test_from_dict(pantry: Pantry):
-    assert pantry == Pantry.from_dict(PANTRY_DICT)
+def test_from_dict(pantry: Pantry, pantry_dict: dict):
+    assert pantry == Pantry.from_dict(pantry_dict)
 
 
 def test_get_food(pantry: Pantry, tortilla: Food):
