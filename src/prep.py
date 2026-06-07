@@ -26,6 +26,6 @@ def prepare_meal(pantry: Pantry, calory_budget: float) -> Food:
 
     meal_calories = calculate_calories(meal.nutrition)
 
-    meal_to_budget_ratio = meal_calories / calory_budget
+    meal_to_budget_ratio = calory_budget / meal_calories
 
     return resize_meal(meal, meal_to_budget_ratio)
