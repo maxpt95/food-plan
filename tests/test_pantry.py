@@ -1,12 +1,5 @@
-import pytest
-
 from food import Food, NutritionalInfo, ServingSize
 from pantry import Pantry
-
-
-@pytest.fixture
-def tortilla(tortilla_nutrition: NutritionalInfo) -> Food:
-    return Food(name="tortilla", nutrition=tortilla_nutrition)
 
 
 def test_from_dict(tortilla_nutrition_dict: dict, tortilla_nutrition):
