@@ -5,34 +5,8 @@ from pantry import Pantry
 
 
 @pytest.fixture
-def pantry_dict(tortilla_nutrition_dict: dict) -> dict:
-    return {
-        "foods": {
-            "tortilla": tortilla_nutrition_dict,
-            "spaghetti": {
-                "serving_size": {"unit": "g", "amount": 100},
-                "fats": 1.5,
-                "carbs": 75,
-                "proteins": 13,
-            },
-            "rice": {
-                "serving_size": {"unit": "g", "amount": 100},
-                "fats": 0.7,
-                "carbs": 80,
-                "proteins": 7.1,
-            },
-        }
-    }
-
-
-@pytest.fixture
 def tortilla(tortilla_nutrition: NutritionalInfo) -> Food:
     return Food(name="tortilla", nutrition=tortilla_nutrition)
-
-
-@pytest.fixture
-def pantry(tortilla_nutrition: NutritionalInfo, pantry_dict: dict) -> Pantry:
-    return Pantry.from_dict(pantry_dict)
 
 
 def test_from_dict(tortilla_nutrition_dict: dict, tortilla_nutrition):
