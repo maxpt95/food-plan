@@ -6,9 +6,11 @@ Most I/O operations should be concentrated here.
 
 import json
 import time
+from copy import deepcopy
 from dataclasses import asdict
 
 import config
+import prep
 from constants import MENU_OPTIONS_NUMBER, SEPARATOR
 from food import Food, NutritionalInfo, ServingSize
 from pantry import Pantry
@@ -135,6 +137,29 @@ def remove_food(pantry: Pantry) -> None:
     print(f"\nRemoved {food_name} from pantry.")
 
 
+def prepare_meal(pantry: Pantry) -> None:
+    if not pantry.foods:
+        print("\nYour pantry is empty. Try adding some foods!")
+        return
+
+    pantry_cp = deepcopy(pantry)
+    calory_budget = float(input("\nEnter your calory budget: "))
+
+    while True:
+        print("\nPreparing meal...")
+        meal = prep.prepare_meal(pantry_cp, calory_budget)
+
+        print(f"\nHere is a meal that fits your calory budget of {calory_budget}kcal")
+        print(f"\n{meal}")
+        print("\nWould you like a different meal?")
+        repeat = input("Yes/No: ").lower()
+
+        if repeat == "no":
+            return
+        # pop the recommendation to not repeat again
+        pantry_cp.pop_food(meal.name)
+
+
 def route_request(request: int, pantry: Pantry) -> None:
     match request:
         case 1:
@@ -149,8 +174,7 @@ def route_request(request: int, pantry: Pantry) -> None:
         case 3:
             remove_food(pantry)
         case 4:
-            # generate_random_plate()
-            pass
+            prepare_meal(pantry)
         case _:
             raise ValueError(f"invalid request: {request}")
 
@@ -161,7 +185,7 @@ def menu() -> None:
     print("1. Show food list.")
     print("2. Add or modify food.")
     print("3. Remove food.")
-    print("4. Cook a random plate.")
+    print("4. Prepare a meal!")
     print("5. EXIT.")
 
 
