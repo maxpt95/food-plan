@@ -8,18 +8,17 @@ from meal import Meal, NutritionalInfo
 MealName = str
 
 
-# TODO: refactor pantry to fridge
 @dataclass
-class Pantry:
+class Fridge:
     meals: dict[MealName, NutritionalInfo]
 
     @classmethod
-    def from_dict(cls, pantry_dict: dict) -> Pantry:
-        """Instantiates Pantry from a json dict"""
+    def from_dict(cls, fridge_dict: dict) -> Fridge:
+        """Instantiates Fridge from a json dict"""
         return cls(
             meals={
                 meal_name: NutritionalInfo.from_dict(nutrition)
-                for meal_name, nutrition in pantry_dict["meals"].items()
+                for meal_name, nutrition in fridge_dict["meals"].items()
             }
         )
 
@@ -39,7 +38,7 @@ class Pantry:
         return Meal(name=random_meal[0], nutrition=random_meal[1])
 
     def pop_meal(self, meal_name: str) -> Meal | None:
-        """Remove meal from pantry
+        """Remove meal from fridge
 
         Returns:
             The meal item removed or None if it doesn't exist.

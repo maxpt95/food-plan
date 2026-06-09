@@ -1,5 +1,5 @@
+from fridge import Fridge
 from meal import Meal, NutritionalInfo, ServingSize
-from pantry import Pantry
 
 
 def calculate_calories(nutrition: NutritionalInfo):
@@ -21,8 +21,8 @@ def resize_meal(meal: Meal, ratio: float) -> Meal:
     return Meal(meal.name, resized_nutrition)
 
 
-def prepare_meal(pantry: Pantry, calory_budget: float) -> Meal:
-    meal = pantry.get_random_meal()
+def prepare_meal(fridge: Fridge, calory_budget: float) -> Meal:
+    meal = fridge.get_random_meal()
 
     meal_calories = calculate_calories(meal.nutrition)
 

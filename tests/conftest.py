@@ -1,7 +1,7 @@
 import pytest
 
+from fridge import Fridge
 from meal import Meal, NutritionalInfo, ServingSize
-from pantry import Pantry
 
 
 @pytest.fixture
@@ -30,7 +30,7 @@ def tortilla(tortilla_nutrition: NutritionalInfo) -> Meal:
 
 
 @pytest.fixture
-def pantry_dict(tortilla_nutrition_dict: dict) -> dict:
+def fridge_dict(tortilla_nutrition_dict: dict) -> dict:
     return {
         "meals": {
             "tortilla": tortilla_nutrition_dict,
@@ -51,5 +51,5 @@ def pantry_dict(tortilla_nutrition_dict: dict) -> dict:
 
 
 @pytest.fixture
-def pantry(tortilla_nutrition: NutritionalInfo, pantry_dict: dict) -> Pantry:
-    return Pantry.from_dict(pantry_dict)
+def fridge(tortilla_nutrition: NutritionalInfo, fridge_dict: dict) -> Fridge:
+    return Fridge.from_dict(fridge_dict)

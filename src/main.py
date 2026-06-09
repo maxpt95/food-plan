@@ -12,8 +12,8 @@ from dataclasses import asdict
 import config
 import prep
 from constants import MENU_OPTIONS_NUMBER, SEPARATOR
+from fridge import Fridge
 from meal import Meal, NutritionalInfo, ServingSize
-from pantry import Pantry
 
 
 def ask_nutritional_info() -> NutritionalInfo:
@@ -40,23 +40,23 @@ def ask_meal_name() -> str:
     return meal_name
 
 
-def add_meal(pantry: Pantry, meal_name: str):
+def add_meal(fridge: Fridge, meal_name: str):
     """Add meal user interface.
 
-    Adds a new meal to pantry.
+    Adds a new meal to fridge.
 
     Args:
-        pantry: the pantry instance to interact
+        fridge: the fridge instance to interact
         with the meal inventory.
-        meal_name: name of the meal to add to the pantry.
+        meal_name: name of the meal to add to the fridge.
     """
     nutrition = ask_nutritional_info()
     meal = Meal(meal_name, nutrition)
-    pantry.add_meal(meal)
-    print(f"\nAdded to pantry:\n{meal}")
+    fridge.add_meal(meal)
+    print(f"\nAdded to fridge:\n{meal}")
 
 
-def modify_meal(pantry: Pantry, meal: Meal) -> None:
+def modify_meal(fridge: Fridge, meal: Meal) -> None:
     meal_name = meal.name
     while True:
         print(f"\nModifying {meal.name.title()}.")
@@ -111,43 +111,43 @@ def modify_meal(pantry: Pantry, meal: Meal) -> None:
             case 6:
                 meal.nutrition = ask_nutritional_info()
             case 7:
-                pantry.pop_meal(meal_name)
-                pantry.add_meal(meal)
+                fridge.pop_meal(meal_name)
+                fridge.add_meal(meal)
                 return
             case _:
                 print(f"Invalid option: {choice}")
 
 
-def list_meals(pantry: Pantry) -> None:
-    if not pantry.meals:
-        print("\nYour pantry is empty. Try adding some meals!")
+def list_meals(fridge: Fridge) -> None:
+    if not fridge.meals:
+        print("\nYour fridge is empty. Try adding some meals!")
         return
 
-    print("\nThis is your pantry:\n")
-    print(pantry)
+    print("\nThis is your fridge:\n")
+    print(fridge)
 
 
-def remove_meal(pantry: Pantry) -> None:
+def remove_meal(fridge: Fridge) -> None:
     meal_name = input("Enter meal name to be removed: ")
-    meal = pantry.pop_meal(meal_name)
+    meal = fridge.pop_meal(meal_name)
 
     if not meal:
-        print(f"\n{meal_name} wasn't found in pantry.")
+        print(f"\n{meal_name} wasn't found in fridge.")
 
-    print(f"\nRemoved {meal_name} from pantry.")
+    print(f"\nRemoved {meal_name} from fridge.")
 
 
-def prepare_meal(pantry: Pantry) -> None:
-    if not pantry.meals:
-        print("\nYour pantry is empty. Try adding some meals!")
+def prepare_meal(fridge: Fridge) -> None:
+    if not fridge.meals:
+        print("\nYour fridge is empty. Try adding some meals!")
         return
 
-    pantry_cp = deepcopy(pantry)
+    fridge_cp = deepcopy(fridge)
     calory_budget = float(input("\nEnter your calory budget: "))
 
     while True:
         print("\nPreparing meal...")
-        meal = prep.prepare_meal(pantry_cp, calory_budget)
+        meal = prep.prepare_meal(fridge_cp, calory_budget)
 
         print(f"\nHere is a meal that fits your calory budget of {calory_budget}kcal")
         print(f"\n{meal}")
@@ -157,24 +157,24 @@ def prepare_meal(pantry: Pantry) -> None:
         if repeat == "no":
             return
         # pop the recommendation to not repeat again
-        pantry_cp.pop_meal(meal.name)
+        fridge_cp.pop_meal(meal.name)
 
 
-def route_request(request: int, pantry: Pantry) -> None:
+def route_request(request: int, fridge: Fridge) -> None:
     match request:
         case 1:
-            list_meals(pantry)
+            list_meals(fridge)
         case 2:
             meal_name = ask_meal_name()
-            meal = pantry.get_meal(meal_name)
+            meal = fridge.get_meal(meal_name)
             if not meal:
-                add_meal(pantry, meal_name)
+                add_meal(fridge, meal_name)
                 return
-            modify_meal(pantry, meal)
+            modify_meal(fridge, meal)
         case 3:
-            remove_meal(pantry)
+            remove_meal(fridge)
         case 4:
-            prepare_meal(pantry)
+            prepare_meal(fridge)
         case _:
             raise ValueError(f"invalid request: {request}")
 
@@ -191,12 +191,12 @@ def menu() -> None:
 
 def main():
     print("Welcome to Meal Prep!")
-    print("Loading pantry...")
+    print("Loading fridge...")
 
     if not config.PANTRY_PATH.exists():
         config.PANTRY_PATH.write_text("{}", encoding="utf-8")
 
-    pantry = Pantry.from_dict(json.load(config.PANTRY_PATH.open()))
+    fridge = Fridge.from_dict(json.load(config.PANTRY_PATH.open()))
     while True:
         time.sleep(1)
         menu()
@@ -209,12 +209,12 @@ def main():
         # chose to exit.
         if request == MENU_OPTIONS_NUMBER:
             with open(config.PANTRY_PATH, "w") as f:
-                json.dump(asdict(pantry), f)
+                json.dump(asdict(fridge), f)
 
             return
 
         try:
-            route_request(request, pantry)
+            route_request(request, fridge)
         except ValueError:
             print("\nPlease choose one of the listed options")
 
