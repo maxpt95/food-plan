@@ -8,6 +8,7 @@ from food import Food, NutritionalInfo
 FoodName = str
 
 
+# TODO: refactor pantry to fridge
 @dataclass
 class Pantry:
     foods: dict[FoodName, NutritionalInfo]

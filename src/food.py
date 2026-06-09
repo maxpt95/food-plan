@@ -4,6 +4,7 @@ from copy import deepcopy
 from dataclasses import dataclass
 
 
+# TODO: refactor foods to meals
 class ServingSize:
     def __init__(self, amount: float, unit: str):
         if amount < 0:
@@ -109,4 +110,5 @@ class Food:
     nutrition: NutritionalInfo
 
     def __str__(self):
+        # TODO change to title
         return f"{self.name.capitalize()}\n------------------\n{self.nutrition}"
