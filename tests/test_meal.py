@@ -2,7 +2,7 @@ from copy import deepcopy
 
 import pytest
 
-from food import NutritionalInfo, ServingSize
+from meal import NutritionalInfo, ServingSize
 
 
 class TestServingSize:

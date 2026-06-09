@@ -1,6 +1,6 @@
 import pytest
 
-from food import Food, NutritionalInfo, ServingSize
+from meal import Meal, NutritionalInfo, ServingSize
 from pantry import Pantry
 
 
@@ -25,14 +25,14 @@ def tortilla_nutrition(tortilla_nutrition_dict: dict) -> NutritionalInfo:
 
 
 @pytest.fixture
-def tortilla(tortilla_nutrition: NutritionalInfo) -> Food:
-    return Food(name="tortilla", nutrition=tortilla_nutrition)
+def tortilla(tortilla_nutrition: NutritionalInfo) -> Meal:
+    return Meal(name="tortilla", nutrition=tortilla_nutrition)
 
 
 @pytest.fixture
 def pantry_dict(tortilla_nutrition_dict: dict) -> dict:
     return {
-        "foods": {
+        "meals": {
             "tortilla": tortilla_nutrition_dict,
             "spaghetti": {
                 "serving_size": {"unit": "g", "amount": 100},

@@ -1,4 +1,4 @@
-"""Entry point of Food Plan
+"""Entry point of Meal Prep
 
 Where the user interface lives.
 Most I/O operations should be concentrated here.
@@ -12,13 +12,13 @@ from dataclasses import asdict
 import config
 import prep
 from constants import MENU_OPTIONS_NUMBER, SEPARATOR
-from food import Food, NutritionalInfo, ServingSize
+from meal import Meal, NutritionalInfo, ServingSize
 from pantry import Pantry
 
 
 def ask_nutritional_info() -> NutritionalInfo:
     while True:
-        print("\nInsert food nutritional information.")
+        print("\nInsert meal nutritional information.")
         serving_amount = int(input("Serving size amount: "))
         serving_unit = input("Serving size unit: ")
         fats = float(input("Fats (g): "))
@@ -32,34 +32,34 @@ def ask_nutritional_info() -> NutritionalInfo:
             print(f"\n{e}")
 
 
-def ask_food_name() -> str:
-    food_name = input("Enter food name: ").lower().strip()
-    if not food_name:
-        print("\nFood name is empty")
+def ask_meal_name() -> str:
+    meal_name = input("Enter meal name: ").lower().strip()
+    if not meal_name:
+        print("\nmeal name is empty")
 
-    return food_name
+    return meal_name
 
 
-def add_food(pantry: Pantry, food_name: str):
-    """Add food user interface.
+def add_meal(pantry: Pantry, meal_name: str):
+    """Add meal user interface.
 
-    Adds a new food to pantry.
+    Adds a new meal to pantry.
 
     Args:
         pantry: the pantry instance to interact
-        with the food inventory.
-        food_name: name of the food to add to the pantry.
+        with the meal inventory.
+        meal_name: name of the meal to add to the pantry.
     """
     nutrition = ask_nutritional_info()
-    food = Food(food_name, nutrition)
-    pantry.add_food(food)
-    print(f"\nAdded to pantry:\n{food}")
+    meal = Meal(meal_name, nutrition)
+    pantry.add_meal(meal)
+    print(f"\nAdded to pantry:\n{meal}")
 
 
-def modify_food(pantry: Pantry, food: Food) -> None:
-    food_name = food.name
+def modify_meal(pantry: Pantry, meal: Meal) -> None:
+    meal_name = meal.name
     while True:
-        print(f"\nModifying {food.name.title()}.")
+        print(f"\nModifying {meal.name.title()}.")
         print(SEPARATOR)
         print("1. Name")
         print("2. Serving Size")
@@ -73,13 +73,13 @@ def modify_food(pantry: Pantry, food: Food) -> None:
 
         match choice:
             case 1:
-                new_name = ask_food_name()
+                new_name = ask_meal_name()
                 if not new_name:
                     continue
-                food.name = new_name
+                meal.name = new_name
             case 2:
-                serving_size = food.nutrition.serving_size
-                print(f"\n{food.name} {serving_size}")
+                serving_size = meal.nutrition.serving_size
+                print(f"\n{meal.name} {serving_size}")
                 try:
                     serving_size.amount = float(
                         input("Enter new serving size amount: ")
@@ -89,57 +89,57 @@ def modify_food(pantry: Pantry, food: Food) -> None:
                     continue
                 serving_size.unit = input("Enter new serving size unit: ")
             case 3:
-                print(f"\n{food.name} current proteins(g): {food.nutrition.proteins}")
+                print(f"\n{meal.name} current proteins(g): {meal.nutrition.proteins}")
                 try:
-                    food.nutrition.proteins = float(
+                    meal.nutrition.proteins = float(
                         input("Enter new protein(g) amount: ")
                     )
                 except ValueError as e:
                     print(f"\n{e}")
             case 4:
-                print(f"\n{food.name} current carbs(g): {food.nutrition.fats}")
+                print(f"\n{meal.name} current carbs(g): {meal.nutrition.fats}")
                 try:
-                    food.nutrition.fats = float(input("Enter new fats(g) amount: "))
+                    meal.nutrition.fats = float(input("Enter new fats(g) amount: "))
                 except ValueError as e:
                     print(f"\n{e}")
             case 5:
-                print(f"\n{food.name} current carbs(g): {food.nutrition.carbs}")
+                print(f"\n{meal.name} current carbs(g): {meal.nutrition.carbs}")
                 try:
-                    food.nutrition.carbs = float(input("Enter new carbs(g) amount: "))
+                    meal.nutrition.carbs = float(input("Enter new carbs(g) amount: "))
                 except ValueError as e:
                     print(f"\n{e}")
             case 6:
-                food.nutrition = ask_nutritional_info()
+                meal.nutrition = ask_nutritional_info()
             case 7:
-                pantry.pop_food(food_name)
-                pantry.add_food(food)
+                pantry.pop_meal(meal_name)
+                pantry.add_meal(meal)
                 return
             case _:
                 print(f"Invalid option: {choice}")
 
 
-def list_foods(pantry: Pantry) -> None:
-    if not pantry.foods:
-        print("\nYour pantry is empty. Try adding some foods!")
+def list_meals(pantry: Pantry) -> None:
+    if not pantry.meals:
+        print("\nYour pantry is empty. Try adding some meals!")
         return
 
     print("\nThis is your pantry:\n")
     print(pantry)
 
 
-def remove_food(pantry: Pantry) -> None:
-    food_name = input("Enter food name to be removed: ")
-    food = pantry.pop_food(food_name)
+def remove_meal(pantry: Pantry) -> None:
+    meal_name = input("Enter meal name to be removed: ")
+    meal = pantry.pop_meal(meal_name)
 
-    if not food:
-        print(f"\n{food_name} wasn't found in pantry.")
+    if not meal:
+        print(f"\n{meal_name} wasn't found in pantry.")
 
-    print(f"\nRemoved {food_name} from pantry.")
+    print(f"\nRemoved {meal_name} from pantry.")
 
 
 def prepare_meal(pantry: Pantry) -> None:
-    if not pantry.foods:
-        print("\nYour pantry is empty. Try adding some foods!")
+    if not pantry.meals:
+        print("\nYour pantry is empty. Try adding some meals!")
         return
 
     pantry_cp = deepcopy(pantry)
@@ -157,22 +157,22 @@ def prepare_meal(pantry: Pantry) -> None:
         if repeat == "no":
             return
         # pop the recommendation to not repeat again
-        pantry_cp.pop_food(meal.name)
+        pantry_cp.pop_meal(meal.name)
 
 
 def route_request(request: int, pantry: Pantry) -> None:
     match request:
         case 1:
-            list_foods(pantry)
+            list_meals(pantry)
         case 2:
-            food_name = ask_food_name()
-            food = pantry.get_food(food_name)
-            if not food:
-                add_food(pantry, food_name)
+            meal_name = ask_meal_name()
+            meal = pantry.get_meal(meal_name)
+            if not meal:
+                add_meal(pantry, meal_name)
                 return
-            modify_food(pantry, food)
+            modify_meal(pantry, meal)
         case 3:
-            remove_food(pantry)
+            remove_meal(pantry)
         case 4:
             prepare_meal(pantry)
         case _:
@@ -180,17 +180,17 @@ def route_request(request: int, pantry: Pantry) -> None:
 
 
 def menu() -> None:
-    print("\nFood Plan")
+    print("\nMeal Prep")
     print(SEPARATOR)
-    print("1. Show food list.")
-    print("2. Add or modify food.")
-    print("3. Remove food.")
+    print("1. Show meal list.")
+    print("2. Add or modify meal.")
+    print("3. Remove meal.")
     print("4. Prepare a meal!")
     print("5. EXIT.")
 
 
 def main():
-    print("Welcome to Food Plan!")
+    print("Welcome to Meal Prep!")
     print("Loading pantry...")
 
     if not config.PANTRY_PATH.exists():

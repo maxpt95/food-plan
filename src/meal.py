@@ -4,7 +4,6 @@ from copy import deepcopy
 from dataclasses import dataclass
 
 
-# TODO: refactor foods to meals
 class ServingSize:
     def __init__(self, amount: float, unit: str):
         if amount < 0:
@@ -105,7 +104,7 @@ Proteins: {self.proteins}g
 
 
 @dataclass
-class Food:
+class Meal:
     name: str
     nutrition: NutritionalInfo
 
