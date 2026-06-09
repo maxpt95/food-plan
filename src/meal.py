@@ -109,5 +109,4 @@ class Meal:
     nutrition: NutritionalInfo
 
     def __str__(self):
-        # TODO change to title
-        return f"{self.name.capitalize()}\n------------------\n{self.nutrition}"
+        return f"{self.name.title()}\n------------------\n{self.nutrition}"
