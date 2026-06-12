@@ -77,6 +77,7 @@ def add_meal(fridge: Fridge, meal_name: str):
 
 
 def modify_meal(fridge: Fridge, meal: Meal) -> None:
+    """Modify any or all attributes of a meal."""
     meal_name = meal.name
     while True:
         print(f"\nModifying {meal.name.title()}.")
@@ -139,6 +140,7 @@ def modify_meal(fridge: Fridge, meal: Meal) -> None:
 
 
 def list_meals(fridge: Fridge) -> None:
+    """Show all meals in fridge."""
     if not fridge.meals:
         print("\nYour fridge is empty. Try adding some meals!")
         return
@@ -148,6 +150,7 @@ def list_meals(fridge: Fridge) -> None:
 
 
 def remove_meal(fridge: Fridge) -> None:
+    """Remove meal from fridge"""
     meal_name = input("Enter meal name to be removed: ")
     meal = fridge.pop_meal(meal_name)
 
@@ -158,6 +161,7 @@ def remove_meal(fridge: Fridge) -> None:
 
 
 def prepare_meal(fridge: Fridge) -> None:
+    """Prepare a given or random meal."""
     if not fridge.meals:
         print("\nYour fridge is empty. Try adding some meals!")
         return
