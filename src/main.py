@@ -213,6 +213,8 @@ def prepare_meal_menu() -> int:
 
 def main_menu() -> int:
     while True:
+        time.sleep(config.BASE_WAIT_TIME_SEC)
+
         print("\nMeal Prep")
         print(SEPARATOR)
         print("1. Show meal list.")
@@ -235,7 +237,6 @@ def main():
 
     fridge = Fridge.from_dict(json.load(config.PANTRY_PATH.open()))
     while True:
-        time.sleep(1)
         choice = main_menu()
 
         # chose to exit.
