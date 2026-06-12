@@ -1,1 +1,274 @@
-{"meals": {"beef tacos":
+{
+    "meals": {
+        "spaghetti carbonara": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 1.5,
+            "carbs": 75,
+            "proteins": 13
+        },
+        "some tasty rice": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 0.7,
+            "carbs": 80,
+            "proteins": 7.1
+        },
+        "grilled chicken breast": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 3.6,
+            "carbs": 0,
+            "proteins": 31
+        },
+        "cooked atlantic salmon": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 13,
+            "carbs": 0,
+            "proteins": 22
+        },
+        "boiled eggs": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 10.6,
+            "carbs": 1.1,
+            "proteins": 12.6
+        },
+        "avocado salad": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 14.7,
+            "carbs": 8.5,
+            "proteins": 2
+        },
+        "beef ribeye steak": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 22.0,
+            "carbs": 0.0,
+            "proteins": 24.0
+        },
+        "classic margherita pizza": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 8.5,
+            "carbs": 30.5,
+            "proteins": 10.0
+        },
+        "greek yogurt": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 4.0,
+            "carbs": 3.6,
+            "proteins": 10.0
+        },
+        "oatmeal porridge": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 1.7,
+            "carbs": 12.0,
+            "proteins": 2.5
+        },
+        "lentil soup": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 0.8,
+            "carbs": 14.5,
+            "proteins": 5.8
+        },
+        "shrimp stir fry": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 4.2,
+            "carbs": 6.0,
+            "proteins": 14.1
+        },
+        "baked sweet potato": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 0.1,
+            "carbs": 21.0,
+            "proteins": 2.0
+        },
+        "turkey breast burger": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 7.2,
+            "carbs": 12.5,
+            "proteins": 18.4
+        },
+        "hummus and pita": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 6.5,
+            "carbs": 32.0,
+            "proteins": 6.8
+        },
+        "pan seared tofu": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 5.0,
+            "carbs": 2.5,
+            "proteins": 9.0
+        },
+        "quinoa vegetable bowl": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 2.8,
+            "carbs": 18.5,
+            "proteins": 4.1
+        },
+        "beef chili con carne": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 6.2,
+            "carbs": 11.3,
+            "proteins": 10.5
+        },
+        "chicken caesar salad": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 11.8,
+            "carbs": 4.2,
+            "proteins": 15.0
+        },
+        "miso soup with seaweed": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 0.6,
+            "carbs": 2.7,
+            "proteins": 1.5
+        },
+        "pork chop roasted": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 14.2,
+            "carbs": 0.0,
+            "proteins": 27.3
+        },
+        "mixed berry smoothie": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 0.4,
+            "carbs": 11.5,
+            "proteins": 1.0
+        },
+        "tuna salad sandwich": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 9.5,
+            "carbs": 22.0,
+            "proteins": 14.2
+        },
+        "lasagna bolognese": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 7.8,
+            "carbs": 15.4,
+            "proteins": 8.5
+        },
+        "roasted chickpeas": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 5.0,
+            "carbs": 24.2,
+            "proteins": 7.5
+        },
+        "chicken tikka masala": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 8.3,
+            "carbs": 7.1,
+            "proteins": 12.4
+        },
+        "cottage cheese": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 4.3,
+            "carbs": 3.4,
+            "proteins": 11.1
+        },
+        "french onion soup": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 4.1,
+            "carbs": 8.7,
+            "proteins": 3.5
+        },
+        "beef and broccoli": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 5.8,
+            "carbs": 6.4,
+            "proteins": 11.2
+        },
+        "chia seed pudding": {
+            "serving_size": {
+                "unit": "g",
+                "amount": 100
+            },
+            "fats": 4.5,
+            "carbs": 12.0,
+            "proteins": 3.0
+        }
+    }
+}
