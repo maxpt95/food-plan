@@ -224,7 +224,7 @@ def main_menu() -> int:
         print("5. Prep a meal of my choice.")
         print("6. EXIT.")
 
-        if (choice := ask_choice(max_options=6)) != -1:
+        if (choice := ask_choice(max_options=MAIN_MENU_OPTIONS_NUMBER)) == -1:
             return choice
 
 
@@ -245,10 +245,7 @@ def main():
                 json.dump(asdict(fridge), f, indent=4)
             return
 
-        try:
-            route_choice(choice, fridge)
-        except ValueError:
-            print("\nPlease choose one of the listed options")
+        route_choice(choice, fridge)
 
 
 if __name__ == "__main__":
