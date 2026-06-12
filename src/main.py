@@ -92,7 +92,7 @@ def modify_meal(fridge: Fridge, meal: Meal) -> None:
         print("6. All nutritional info")
         print("7. EXIT")
 
-        choice = int(input("\n Choose: "))
+        choice = ask_choice(max_options=7)
 
         match choice:
             case 1:
@@ -216,7 +216,7 @@ def main_menu() -> int:
         print("5. Prep a meal of my choice.")
         print("6. EXIT.")
 
-        if (choice := ask_choice(max_options=MAIN_MENU_OPTIONS_NUMBER)) == -1:
+        if (choice := ask_choice(max_options=MAIN_MENU_OPTIONS_NUMBER)) != -1:
             return choice
 
 
