@@ -197,18 +197,10 @@ def route_choice(request: int, fridge: Fridge) -> None:
         case 3:
             remove_meal(fridge)
         case 4:
-            prepare_meal_menu(fridge)
-
+            # prepare_meal_menu(fridge)
+            pass
         case _:
             raise ValueError(f"invalid request: {request}")
-
-
-def prepare_meal_menu() -> int:
-    while True:
-        print("\nPrepare a Meal!")
-        print(SEPARATOR)
-
-        print("3. Back to Main Menu.")
 
 
 def main_menu() -> int:
