@@ -19,17 +19,18 @@ from meal import Meal, NutritionalInfo, ServingSize
 def ask_nutritional_info() -> NutritionalInfo:
     while True:
         print("\nInsert meal nutritional information.")
-        serving_amount = int(input("Serving size amount: "))
         serving_unit = input("Serving size unit: ")
-        fats = float(input("Fats (g): "))
-        carbs = float(input("Carbs (g): "))
-        proteins = float(input("Protein (g): "))
 
         try:
-            serving = ServingSize(serving_amount, serving_unit)
-            return NutritionalInfo(serving, fats, carbs, proteins)
-        except ValueError as e:
-            print(f"\n{e}")
+            serving_amount = int(input("Serving size amount: "))
+            fats = float(input("Fats (g): "))
+            carbs = float(input("Carbs (g): "))
+            proteins = float(input("Protein (g): "))
+        except ValueError:
+            print("You introduced an invalid value. Try again.")
+
+        serving = ServingSize(serving_unit, serving_amount)
+        return NutritionalInfo(serving, fats, carbs, proteins)
 
 
 def ask_meal_name() -> str:
