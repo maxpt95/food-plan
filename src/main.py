@@ -241,7 +241,7 @@ def main():
         # chose to exit.
         if choice == MAIN_MENU_OPTIONS_NUMBER:
             with open(config.PANTRY_PATH, "w") as f:
-                json.dump(asdict(fridge), f)
+                json.dump(asdict(fridge), f, indent=4)
             return
 
         try:
