@@ -49,15 +49,12 @@ def ask_choice(max_options: int) -> int:
     Returns:
         A valid user choice or -1 if the choice is invalid.
     """
-    CHOOSE_AGAIN_MSG = "\nPlease choose one of the listed option numbers."
     try:
         choice = int(input("\nChoose an option number: "))
     except ValueError:
-        print(CHOOSE_AGAIN_MSG)
         return -1
 
     if 0 < choice <= max_options:
-        print(CHOOSE_AGAIN_MSG)
         return choice
 
     return -1
