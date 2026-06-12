@@ -40,6 +40,29 @@ def ask_meal_name() -> str:
     return meal_name
 
 
+def ask_choice(max_options: int) -> int:
+    """Request an option choice for all menus.
+
+    Args:
+        max_choice: maximum number of options available to
+            choose from.
+    Returns:
+        A valid user choice or -1 if the choice is invalid.
+    """
+    CHOOSE_AGAIN_MSG = "\nPlease choose one of the listed option numbers."
+    try:
+        choice = int(input("\nChoose an option number: "))
+    except ValueError:
+        print(CHOOSE_AGAIN_MSG)
+        return -1
+
+    if 0 < choice <= max_options:
+        print(CHOOSE_AGAIN_MSG)
+        return choice
+
+    return -1
+
+
 def add_meal(fridge: Fridge, meal_name: str):
     """Add meal user interface.
 
@@ -160,7 +183,7 @@ def prepare_meal(fridge: Fridge) -> None:
         fridge_cp.pop_meal(meal.name)
 
 
-def route_request(request: int, fridge: Fridge) -> None:
+def route_choice(request: int, fridge: Fridge) -> None:
     match request:
         case 1:
             list_meals(fridge)
@@ -174,19 +197,33 @@ def route_request(request: int, fridge: Fridge) -> None:
         case 3:
             remove_meal(fridge)
         case 4:
-            prepare_meal(fridge)
+            prepare_meal_menu(fridge)
+
         case _:
             raise ValueError(f"invalid request: {request}")
 
 
-def main_menu() -> None:
-    print("\nMeal Prep")
-    print(SEPARATOR)
-    print("1. Show meal list.")
-    print("2. Add or modify meal.")
-    print("3. Remove meal.")
-    print("4. Prepare a meal!")
-    print("5. EXIT.")
+def prepare_meal_menu() -> int:
+    while True:
+        print("\nPrepare a Meal!")
+        print(SEPARATOR)
+
+        print("3. Back to Main Menu.")
+
+
+def main_menu() -> int:
+    while True:
+        print("\nMeal Prep")
+        print(SEPARATOR)
+        print("1. Show meal list.")
+        print("2. Add or modify meal.")
+        print("3. Remove meal.")
+        print("4. Prep a random meal.")
+        print("5. Prep a meal of my choice.")
+        print("6. EXIT.")
+
+        if (choice := ask_choice(max_options=6)) != -1:
+            return choice
 
 
 def main():
@@ -199,22 +236,16 @@ def main():
     fridge = Fridge.from_dict(json.load(config.PANTRY_PATH.open()))
     while True:
         time.sleep(1)
-        main_menu()
-        try:
-            request = int(input("\nChoose an option number: "))
-        except ValueError:
-            print("\nPlease choose one of the listed option numbers.")
-            continue
+        choice = main_menu()
 
         # chose to exit.
-        if request == MAIN_MENU_OPTIONS_NUMBER:
+        if choice == MAIN_MENU_OPTIONS_NUMBER:
             with open(config.PANTRY_PATH, "w") as f:
                 json.dump(asdict(fridge), f)
-
             return
 
         try:
-            route_request(request, fridge)
+            route_choice(choice, fridge)
         except ValueError:
             print("\nPlease choose one of the listed options")
 
