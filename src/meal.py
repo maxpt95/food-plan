@@ -25,7 +25,7 @@ class ServingSize:
         self._amount = value
 
     def __str__(self):
-        return f"Serving Size: {self.amount}{self.unit}"
+        return f"Serving Size: {self.amount:.2f}{self.unit}"
 
 
 @dataclass
@@ -81,9 +81,9 @@ class NutritionalInfo:
 ------------------
 {self.serving_size}
 ------------------
-Fats: {self.fats}g
-Carbohydrates: {self.carbs}g
-Proteins: {self.proteins}g
+Fats: {self.fats:.2f}g
+Carbohydrates: {self.carbs:.2f}g
+Proteins: {self.proteins:.2f}g
 """
 
 
