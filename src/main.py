@@ -11,7 +11,7 @@ from dataclasses import asdict
 
 import config
 import prep
-from constants import MENU_OPTIONS_NUMBER, SEPARATOR
+from constants import MAIN_MENU_OPTIONS_NUMBER, SEPARATOR
 from fridge import Fridge
 from meal import Meal, NutritionalInfo, ServingSize
 
@@ -179,7 +179,7 @@ def route_request(request: int, fridge: Fridge) -> None:
             raise ValueError(f"invalid request: {request}")
 
 
-def menu() -> None:
+def main_menu() -> None:
     print("\nMeal Prep")
     print(SEPARATOR)
     print("1. Show meal list.")
@@ -199,7 +199,7 @@ def main():
     fridge = Fridge.from_dict(json.load(config.PANTRY_PATH.open()))
     while True:
         time.sleep(1)
-        menu()
+        main_menu()
         try:
             request = int(input("\nChoose an option number: "))
         except ValueError:
@@ -207,7 +207,7 @@ def main():
             continue
 
         # chose to exit.
-        if request == MENU_OPTIONS_NUMBER:
+        if request == MAIN_MENU_OPTIONS_NUMBER:
             with open(config.PANTRY_PATH, "w") as f:
                 json.dump(asdict(fridge), f)
 
