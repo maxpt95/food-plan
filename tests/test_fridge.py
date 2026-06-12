@@ -19,7 +19,7 @@ def test_get_random_meal(fridge: Fridge):
 
 
 def test_add_meal(fridge: Fridge):
-    serving = ServingSize(50, "grams")
+    serving = ServingSize("grams", 50)
     nutrition = NutritionalInfo(serving, fats=5, carbs=0, proteins=6)
     eggs = Meal("eggs", nutrition)
 

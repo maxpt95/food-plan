@@ -9,8 +9,8 @@ def calculate_calories(nutrition: NutritionalInfo):
 def resize_meal(meal: Meal, ratio: float) -> Meal:
     resized_serving_amount = meal.nutrition.serving_size.amount * ratio
     resized_serving = ServingSize(
-        resized_serving_amount,
         meal.nutrition.serving_size.unit,
+        resized_serving_amount,
     )
     resized_nutrition = NutritionalInfo(
         resized_serving,

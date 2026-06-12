@@ -4,12 +4,14 @@ from copy import deepcopy
 from dataclasses import dataclass
 
 
+@dataclass
 class ServingSize:
-    def __init__(self, amount: float, unit: str):
-        if amount < 0:
+    unit: str
+    amount: float
+
+    def __post_init__(self):
+        if self.amount < 0:
             raise ValueError("Amount can't be negative")
-        self._amount = amount
-        self.unit = unit
 
     @property
     def amount(self) -> float:
@@ -22,28 +24,21 @@ class ServingSize:
             raise ValueError("Amount can't be negative")
         self._amount = value
 
-    def __eq__(self, other: ServingSize) -> bool:
-        if not isinstance(other, ServingSize):
-            return False
-
-        return other._amount == self._amount and other.unit == self.unit
-
     def __str__(self):
         return f"Serving Size: {self.amount}{self.unit}"
 
 
+@dataclass
 class NutritionalInfo:
-    def __init__(
-        self, serving_size: ServingSize, fats: float, carbs: float, proteins: float
-    ):
-        """Validate macronutrients are positive."""
-        if fats < 0 or carbs < 0 or proteins < 0:
-            raise ValueError("Fats, carbs and proteins can't be negative")
+    serving_size: ServingSize
+    fats: float
+    carbs: float
+    proteins: float
 
-        self.serving_size = serving_size
-        self._fats = fats
-        self._carbs = carbs
-        self._proteins = proteins
+    def __post_init__(self):
+        """Validate macronutrients are positive."""
+        if self.fats < 0 or self.carbs < 0 or self.proteins < 0:
+            raise ValueError("Fats, carbs and proteins can't be negative")
 
     @classmethod
     def from_dict(cls, nutritional_info: dict):
@@ -59,7 +54,7 @@ class NutritionalInfo:
     def fats(self, value: float) -> None:
         if value < 0:
             raise ValueError("fats can't be negative")
-        self._fats = self.fats
+        self._fats = value
 
     @property
     def carbs(self) -> float:
@@ -69,7 +64,7 @@ class NutritionalInfo:
     def carbs(self, value: float) -> None:
         if value < 0:
             raise ValueError("carbs can't be negative")
-        self._carbs = self.carbs
+        self._carbs = value
 
     @property
     def proteins(self) -> float:
@@ -79,18 +74,7 @@ class NutritionalInfo:
     def proteins(self, value: float) -> None:
         if value < 0:
             raise ValueError("proteins can't be negative")
-        self._proteins = self.proteins
-
-    def __eq__(self, other: NutritionalInfo) -> bool:
-        if not isinstance(other, NutritionalInfo):
-            return False
-
-        return (
-            other.serving_size == self.serving_size
-            and other._fats == self._fats
-            and other._carbs == self._carbs
-            and other._proteins == self._proteins
-        )
+        self._proteins = value
 
     def __str__(self):
         return f"""Nutritional Info
