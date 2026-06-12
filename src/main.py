@@ -162,15 +162,25 @@ def prepare_meal(fridge: Fridge) -> None:
         print("\nYour fridge is empty. Try adding some meals!")
         return
 
+    meal_name = (
+        input("Enter meal name or leave empty if you want a random meal: ")
+        .lower()
+        .strip()
+    )
+
     fridge_cp = deepcopy(fridge)
     calory_budget = float(input("\nEnter your calory budget: "))
 
     while True:
         print("\nPreparing meal...")
-        meal = prep.prepare_meal(fridge_cp, calory_budget)
+        meal = prep.prepare_meal(fridge_cp, calory_budget, meal_name)
 
         print(f"\nHere is a meal that fits your calory budget of {calory_budget}kcal")
         print(f"\n{meal}")
+
+        if meal_name:
+            return
+
         print("\nWould you like a different meal?")
         repeat = input("Yes/No: ").lower()
 
@@ -194,8 +204,7 @@ def route_choice(request: int, fridge: Fridge) -> None:
         case 3:
             remove_meal(fridge)
         case 4:
-            # prepare_meal_menu(fridge)
-            pass
+            prepare_meal(fridge)
         case _:
             raise ValueError(f"invalid request: {request}")
 
@@ -209,9 +218,8 @@ def main_menu() -> int:
         print("1. Show meal list.")
         print("2. Add or modify meal.")
         print("3. Remove meal.")
-        print("4. Prep a random meal.")
-        print("5. Prep a meal of my choice.")
-        print("6. EXIT.")
+        print("4. Prep a meal!.")
+        print("5. EXIT.")
 
         if (choice := ask_choice(max_options=MAIN_MENU_OPTIONS_NUMBER)) != -1:
             return choice
