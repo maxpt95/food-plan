@@ -234,17 +234,17 @@ def main():
     print("Welcome to Meal Prep!")
     print("Loading fridge...")
 
-    if not config.PANTRY_PATH.exists():
+    if not config.FRIDGE_PATH.exists():
         fridge = Fridge()
     else:
-        fridge = Fridge.from_dict(json.load(config.PANTRY_PATH.open()))
+        fridge = Fridge.from_dict(json.load(config.FRIDGE_PATH.open()))
 
     while True:
         choice = main_menu()
 
         # chose to exit.
         if choice == MAIN_MENU_OPTIONS_NUMBER:
-            with open(config.PANTRY_PATH, "w") as f:
+            with open(config.FRIDGE_PATH, "w") as f:
                 json.dump(asdict(fridge), f, indent=4)
             return
 
