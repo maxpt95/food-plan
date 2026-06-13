@@ -27,7 +27,7 @@ def test_prepare_meal(tortilla: Meal):
     )  # mock Fridge because we need to make get_random_meal deterministic
     fridge.get_random_meal.return_value = tortilla
 
-    meal = prep.prepare_meal(fridge, calory_budget=1680)
+    meal = prep.prepare_meal(fridge, calorie_budget=1680)
 
     assert meal.name == tortilla.name
     assert meal.nutrition.carbs == tortilla.nutrition.carbs * 10

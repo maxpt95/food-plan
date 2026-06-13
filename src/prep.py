@@ -21,11 +21,11 @@ def resize_meal(meal: Meal, ratio: float) -> Meal:
     return Meal(meal.name, resized_nutrition)
 
 
-def prepare_meal(fridge: Fridge, calory_budget: float, meal_name: str = "") -> Meal:
+def prepare_meal(fridge: Fridge, calorie_budget: float, meal_name: str = "") -> Meal:
     meal = fridge.get_random_meal() if not meal_name else fridge.get_meal(meal_name)
 
     meal_calories = calculate_calories(meal.nutrition)
 
-    meal_to_budget_ratio = calory_budget / meal_calories
+    meal_to_budget_ratio = calorie_budget / meal_calories
 
     return resize_meal(meal, meal_to_budget_ratio)

@@ -179,13 +179,13 @@ def prepare_meal(fridge: Fridge) -> None:
         print(f"\n{meal_name} was not found in your fridge.")
 
     fridge_cp = deepcopy(fridge)
-    calory_budget = float(input("\nEnter your calory budget: "))
+    calorie_budget = float(input("\nEnter your calorie budget: "))
 
     while True:
         print("\nPreparing meal...")
-        meal = prep.prepare_meal(fridge_cp, calory_budget, meal_name)
+        meal = prep.prepare_meal(fridge_cp, calorie_budget, meal_name)
 
-        print(f"\nHere is a meal that fits your calory budget of {calory_budget}kcal")
+        print(f"\nHere is a meal that fits your calorie budget of {calorie_budget}kcal")
         print(f"\n{meal}")
 
         if meal_name:
