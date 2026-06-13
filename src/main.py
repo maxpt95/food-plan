@@ -167,11 +167,16 @@ def prepare_meal(fridge: Fridge) -> None:
         print("\nYour fridge is empty. Try adding some meals!")
         return
 
-    meal_name = (
-        input("Enter meal name or leave empty if you want a random meal: ")
-        .lower()
-        .strip()
-    )
+    while True:
+        meal_name = (
+            input("\nEnter meal name or leave empty if you want a random meal: ")
+            .lower()
+            .strip()
+        )
+        if not meal_name or fridge.get_meal(meal_name):
+            break
+
+        print(f"\n{meal_name} was not found in your fridge.")
 
     fridge_cp = deepcopy(fridge)
     calory_budget = float(input("\nEnter your calory budget: "))
