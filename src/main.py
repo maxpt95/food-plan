@@ -235,9 +235,10 @@ def main():
     print("Loading fridge...")
 
     if not config.PANTRY_PATH.exists():
-        config.PANTRY_PATH.write_text("{}", encoding="utf-8")
+        fridge = Fridge()
+    else:
+        fridge = Fridge.from_dict(json.load(config.PANTRY_PATH.open()))
 
-    fridge = Fridge.from_dict(json.load(config.PANTRY_PATH.open()))
     while True:
         choice = main_menu()
 

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import random
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from meal import Meal, NutritionalInfo
 
@@ -10,7 +10,7 @@ MealName = str
 
 @dataclass
 class Fridge:
-    meals: dict[MealName, NutritionalInfo]
+    meals: dict[MealName, NutritionalInfo] = field(default_factory=dict)
 
     @classmethod
     def from_dict(cls, fridge_dict: dict) -> Fridge:
