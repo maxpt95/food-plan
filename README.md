@@ -43,11 +43,15 @@ You may remove a meal by selecting *Remove meal*.
 
 Your fridge will be **saved on exit**.
 
+<img width="50%" height="50%" alt="modifying_fridge" src="https://github.com/user-attachments/assets/d1075207-4522-4340-b099-f63ae12a12d4" />
+
 ### Look at Your Fridge
 
 By selecting *Show meal list* Meal Prep will show you
 a complete list of the meals in your fridge with their
 macronutrient summary.
+
+<img width="50%" height="50%" alt="showing_fridge" src="https://github.com/user-attachments/assets/6f5cd18c-6ab9-41e1-bddd-86b1cf139859" />
 
 ### Meal Prepping
 
@@ -55,6 +59,9 @@ Choose *Prep a meal!* from the Main Menu, and Meal Prep will
 prompt you to enter a meal name and calory budget. Meal Prep
 then will look for that meal in your fridge and resize the serving
 for it to fit your given calorie budget.
+
+<img width="50%" height="50%" alt="meal_prep" src="https://github.com/user-attachments/assets/55c3b18d-fbd1-4ed3-807c-a4470cb6bb1a" />
+
 
 ## License
 
