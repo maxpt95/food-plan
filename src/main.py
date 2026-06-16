@@ -69,6 +69,18 @@ def ask_choice(max_options: int) -> int:
     return -1
 
 
+def ask_yes_or_no() -> bool:
+    while True:
+        choice = input("\nYes/No: ").lower()
+
+        match choice:
+            case "yes" | "y":
+                return True
+            case "no" | "n":
+                return False
+        print(f"\nYou entered an invalid choice: {choice} ")
+
+
 def add_meal(fridge: Fridge, meal_name: str):
     """Add meal user interface.
 
@@ -203,11 +215,11 @@ def prepare_meal(fridge: Fridge) -> None:
             return
 
         print("\nWould you like a different meal?")
-        repeat = input("Yes/No: ").lower()
+        is_yes = ask_yes_or_no()
 
-        if repeat == "no":
+        if not is_yes:
             return
-        # pop the recommendation to not repeat again
+        # pop the recommendation to not repeat it again
         fridge_cp.pop_meal(meal.name)
 
 
