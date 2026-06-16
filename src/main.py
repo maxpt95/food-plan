@@ -5,6 +5,7 @@ Most I/O operations should be concentrated here.
 """
 
 import json
+import os
 import time
 from copy import deepcopy
 from dataclasses import asdict
@@ -14,6 +15,13 @@ import prep
 from constants import MAIN_MENU_OPTIONS_NUMBER, SEPARATOR
 from fridge import Fridge
 from meal import Meal, NutritionalInfo, ServingSize
+
+
+def clear_screen() -> None:
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 
 def ask_nutritional_info() -> NutritionalInfo:
@@ -81,6 +89,7 @@ def modify_meal(fridge: Fridge, meal: Meal) -> None:
     """Modify any or all attributes of a meal."""
     meal_name = meal.name
     while True:
+        clear_screen()
         print(f"\nModifying {meal.name.title()}.")
         print(SEPARATOR)
         print("1. Name")
@@ -92,6 +101,7 @@ def modify_meal(fridge: Fridge, meal: Meal) -> None:
         print("7. EXIT")
 
         choice = ask_choice(max_options=7)
+        clear_screen()
 
         match choice:
             case 1:
@@ -246,8 +256,9 @@ def main():
         fridge = Fridge.from_dict(json.load(config.FRIDGE_PATH.open()))
 
     while True:
+        clear_screen()
         choice = main_menu()
-
+        clear_screen()
         # chose to exit.
         if choice == MAIN_MENU_OPTIONS_NUMBER:
             with open(config.FRIDGE_PATH, "w") as f:
