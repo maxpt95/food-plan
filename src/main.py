@@ -148,6 +148,7 @@ def list_meals(fridge: Fridge) -> None:
 
     print("\nThis is your fridge:\n")
     print(fridge)
+    input("\nPress enter to exit")
 
 
 def remove_meal(fridge: Fridge) -> None:
